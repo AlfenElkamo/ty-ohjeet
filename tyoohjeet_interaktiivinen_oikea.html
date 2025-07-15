@@ -1,0 +1,453 @@
+
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #ffffff;
+        }
+        h1 {
+            text-align: center;
+            color: #004080;
+        }
+        .section {
+            margin-bottom: 30px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+            padding: 20px;  
+        }
+/* Pääotsikot: D7P, 2XD2, jne. */
+#kjmoduulit > details > summary,
+#elmo1000   > details > summary,
+#elmo630    > details > summary,
+#elmo500    > details > summary,
+#kaapeleidenkengitys > details > summary,
+#moottoriohjaus > details > summary {
+  font-size:    1.3em;
+  color:        #004080;
+  background:   #dbe9ff;
+  padding:      8px 12px;
+  border-radius: 6px;
+  margin:       6px 0;
+    }
+
+    /* Alaotsikot: Vaihe 1, Vaihe 2, jne. */
+#kjmoduulit     details details > summary,
+#elmo1000       details details > summary,
+#elmo630        details details > summary,
+#elmo500        details details > summary,
+#kaapeleidenkengitys details details > summary,
+#moottoriohjaus details details > summary {
+  font-size:      1.05em;
+  color:          #003060;
+  background:     #eef6ff;
+  padding:        6px 10px;
+  border-radius:  4px;
+  margin:         4px 0 4px 20px;
+}
+    #kjmoduulit details details > summary:hover,
+    #elmo1000 details details > summary:hover,
+    #elmo630 details details > summary:hover,
+    #elmo500 details details > summary:hover,
+    #kaapeleidenkengitys details details > summary:hover,
+    #moottoriohjaus details details > summary:hover {
+        background-color: #cce0ff;
+      background-color: #d0e4ff;
+    }
+
+        details {
+            margin-top: 10px;
+        }
+        summary {
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+            padding: 10px;
+            background-color: #e6f0ff;
+            border-radius: 5px;
+        }
+        iframe {
+            width: 100%;
+            height: 250px;
+            margin-top: 10px;
+            border: none;
+        }
+		 iframe {
+            width: 100%;
+            height: 250px;
+            margin-top: 10px;
+            border: none;
+        }
+        .menu-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        .nav-menu {
+            display: none;
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 999;
+        }
+        .nav-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #004080;
+        }
+        .nav-menu a:hover {
+            background-color: #f0f0f0;
+        }
+        
+		</style>
+    <script>
+// kun DOM on latautunut, kiinnitetään klikkaustapahtuma kaikkiin nav-linkkeihin
+document.addEventListener('DOMContentLoaded', function() {
+  const menu = document.getElementById('navMenu');
+  document.querySelectorAll('.nav-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      menu.style.display = 'none';
+    });
+  });
+});
+</script>
+<script>
+    function toggleMenu() {
+      const menu = document.getElementById("navMenu");
+      // jos on auki, suljetaan heti
+      if (menu.style.display === "block") {
+        menu.style.display = "none";
+        // resetataan mahdollinen opacity/transition
+        menu.style.opacity = 1;
+        menu.style.transition = "";
+      } else {
+        // avataan
+        menu.style.display = "block";
+        // ajastetaan automaattinen sulkeminen 4 s kuluttua
+        setTimeout(() => {
+          // fade‐out 0.5s
+          menu.style.transition = "opacity 0.5s";
+          menu.style.opacity = 0;
+          // varsinaiseen piiloon 0.5s päästä
+          setTimeout(() => {
+            menu.style.display = "none";
+            // resettaa opacity/transition seuraavaa avausta varten
+            menu.style.opacity = 1;
+            menu.style.transition = "";
+          }, 500);
+        }, 4000);
+      }
+    }
+
+    // klikkaus nav‐linkeille sulkemaan valikon heti
+    document.addEventListener('DOMContentLoaded', () => {
+      // menu-button napin oma sulku
+      document.querySelector('.menu-button')
+        .addEventListener('click', toggleMenu);
+
+      // linkeille oma sulku
+      document.querySelectorAll('.nav-menu a')
+        .forEach(link => link.addEventListener('click', toggleMenu));
+    });
+
+    // sulkeutuu jos klikkaa muualle
+    document.addEventListener("click", function(event) {
+      const menu = document.getElementById("navMenu");
+      const button = document.querySelector(".menu-button");
+      if (
+        menu.style.display === "block" &&
+        !menu.contains(event.target) &&
+        !button.contains(event.target)
+      ) {
+        menu.style.display = "none";
+        menu.style.opacity = 1;
+        menu.style.transition = "";
+      }
+    });
+  </script>
+</head>
+<body>
+
+<button class="menu-button">☰</button>
+<div class="nav-menu" id="navMenu">
+    <a href="#elmo500">ELMO 500</a>
+    <a href="#elmo630">ELMO 630</a>
+    <a href="#elmo1000">ELMO 1000</a>
+    <a href="#kjmoduulit">KJ-moduulit</a>
+    <a href="#kaapeleidenkengitys">Kaapeleiden kengitys</a>
+    <a href="#moottoriohjaus">Moottoriohjaus</a>
+      <a
+    href="https://api.whatsapp.com/send?phone=358407420039&amp;text=Haluan%20tehdä%20korjauspyynnön%20videoon"
+    target="_blank"
+    rel="noopener"
+    onclick="toggleMenu()"
+  >
+    Tee korjauspyyntö
+  </a>
+</div>
+  <style>
+    .nav-menu {
+      display: none;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .nav-menu.open {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Kuvake otsikon viereen */
+.section-icon {
+  width: 110px;
+  height: 110px;
+  vertical-align: middle;
+  margin-right: 3px;
+}
+  </style>
+  <script>
+    let closeTimer;
+
+    function toggleMenu() {
+      const menu = document.getElementById("navMenu");
+      if (menu.classList.contains("open")) {
+        closeMenu();
+        return;
+      }
+      // näytetään ja käynnistetään fade-in
+      menu.style.display = "block";
+      // pienen viiveen jälkeen lisätään luokka, jotta transition toimii
+      requestAnimationFrame(() => menu.classList.add("open"));
+      clearTimeout(closeTimer);
+      closeTimer = setTimeout(closeMenu, 3250);
+    }
+
+    function closeMenu() {
+      const menu = document.getElementById("navMenu");
+      menu.classList.remove("open");
+      menu.addEventListener("transitionend", () => {
+        if (!menu.classList.contains("open")) {
+          menu.style.display = "none";
+        }
+      }, { once: true });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelector(".menu-button")
+        .addEventListener("click", toggleMenu);
+      document.querySelectorAll(".nav-menu a")
+        .forEach(a => a.addEventListener("click", closeMenu));
+    });
+  </script>
+    </style>
+</head>
+<body>
+<div style="text-align: center; margin-bottom: 10px;">
+    <img src="logo-alfen-elkamo.png" alt="Alfen Elkamo logo" style="max-width: 200px; width: 100%; height: auto;">
+</div>
+    <h1>Työohjevideot – ELKAMO </h1>
+<p style="text-align: center; background-color: #e6f4ea; color: #2e7d32; border: 1px solid #c8e6c9; padding: 10px; border-radius: 5px; max-width: 600px; margin: 10px auto; font-size: 0.95em;">
+    📺 Videoiden laatua voi halutessaan säätää videon asetuksista (⚙️)<br>
+    📺 You can adjust the video quality from the video settings (⚙️)
+</p>
+</div>
+	<div class="section" id="elmo500">
+        <h2>🔷 ELMO 500</h2>
+        <details>
+            <summary>Vaihe 1: Runko (betonisokkeli) / Frame (concrete base)</summary>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/Qm1JhPKbX_0?si=c_Pg_hY88F3E5Ecb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </details>
+		<details>
+ <summary>Vaihe 2: Muuntajatila/ Transformer side</summary>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/U0TfsDFGzRQ?si=2FDPgJswzSMHM8O5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</details>
+<details>
+<summary> Vaihe 3: KJ-tila/ KJ compartment </summary>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8839skp3r78?si=6Hi1ePid03oYUA0g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</details>
+<details>
+<summary> Vaihe 4: PJ-tila/ LV compartment </summary>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/F9KV_VKjkHw?si=72enoBHevaQeRl4-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</details>
+<details>
+<summary> Vaihe 5: Katot ja ovet/ Roofs and doors </summary>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/A6rGmx7IYKM?si=b1q6ljudiZXcRfSZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</details>
+
+</summary>
+    </div>
+<!-- ELMO 630 -->
+<div class="section" id="elmo630">
+  <h2>🔷 ELMO 630</h2>
+
+  <details>
+    <summary>Vaihe 1: Runko / Frame</summary>
+    <iframe src="https://www.youtube.com/embed/NBfGY4Khpls?si=WPBSGXt1o7Z3pZzR"
+            allowfullscreen>
+    </iframe>
+  </details>
+
+  <details>
+    <summary>Vaihe 2: Muuntajatila / Transformer side</summary>
+    <iframe src="https://www.youtube.com/embed/2y2kCbSbXus?si=KBLaJX05kMtecat8"
+            allowfullscreen>
+    </iframe>
+  </details>
+
+  <details>
+    <summary>Vaihe 3: PJ-tila / LV compartment</summary>
+    <iframe src="https://www.youtube.com/embed/rMtkPighTOk?si=5lvaoc6Kyu3gI34T"
+            allowfullscreen>
+    </iframe>
+  </details>
+
+  <details>
+    <summary>Vaihe 4: Omakäyttökeskus / Control box</summary>
+    <iframe src="https://www.youtube.com/embed/mYEgAOjqTCw?si=rrS44y9eZjfVYyRo"
+            allowfullscreen>
+    </iframe>
+  </details>
+
+  <details>
+    <summary>Vaihe 5: Muuntajan asennus / Transformer installation</summary>
+    <iframe src="https://www.youtube.com/embed/TTVcVU1RzkY?si=Uf9V1eK7SoJ_tpaD"
+            allowfullscreen>
+    </iframe>
+  </details>
+
+  <details>
+    <summary>Vaihe 6: Maalatut osat ja ovet / Painted parts and the doors</summary>
+    <iframe src="https://www.youtube.com/embed/RR3oZizelgA?si=Bk1Vm7COjACdnPG3" 
+            allowfullscreen>
+    </iframe>
+    </details>
+
+    <details>
+  <summary>Vaihe 7: Katto / Roof</summary>
+    <iframe src="https://www.youtube.com/embed/M7hgJSoG4IM?si=OVy58ga-s49FYruq" 
+            allowfullscreen>
+    </iframe>
+    </details>
+
+        <details>
+  <summary>Vaihe 8: Viimeistely / Finishing touches</summary>
+    <iframe src="https://www.youtube.com/embed/Ga_6J1v1JRI?si=vvEnjx9wJzwJrWDK" 
+            allowfullscreen>
+    </iframe>
+    </details>
+</div> 
+<!-- HUOM: </div> sulkee elmo630 -lohkon -->
+
+<!-- ELMO 1000 -->
+<div class="section" id="elmo1000">
+  <h2>🔷 ELMO 1000</h2>
+
+  <details>
+    <summary>Vaihe 1: Runko / Frame</summary>
+    <iframe src="https://www.youtube.com/embed/aF-eAm60HoE?si=e7-ga-XCynfo3WUT" allowfullscreen></iframe>
+  </details>
+
+  <details>
+    <summary>Vaihe 2: PJ</summary>
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID_4" allowfullscreen></iframe>
+  </details>
+
+  <details>
+    <summary>Vaihe 4: Maalatut osat ja ovet / Painted parts and doors</summary>
+    <iframe src="https://www.youtube.com/embed/RR3oZizelgA?si=Xl6znon0ctoKs2ox" allowfullscreen></iframe>
+  </details>
+</div>
+<!-- HUOM: </div> sulkee elmo1000 -lohkon -->
+
+
+<div class="section" id="kjmoduulit">
+  <h2>🔷 KJ-moduulit / KJ Modules</h2>
+
+  <!-- D7P -->
+  <details>
+    <summary>D7P</summary>
+
+    <!-- Vaihe 1 -->
+    <details>
+      <summary>Vaihe 1: Erottimien asennus / Isolators</summary>
+      <iframe
+        width="560" height="315"
+        src="https://www.youtube.com/embed/RrAn1BnodP0?si=Y6xuaTY4BhL86HiC"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen>
+      </iframe>
+    </details>
+
+    <!-- Vaihe 2 -->
+<details>
+  <summary>Vaihe 2: Johdotus / Cables</summary>
+  <iframe
+    width="560" height="315"
+    src="https://www.youtube.com/embed/Idzdhncvf7Q"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen>
+  </iframe>
+</details>
+
+<details>
+  <summary>Vaihe 3: Sisäovet / Inner Doors</summary>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/eARap8VsABM?si=PutJGJZjFwa4NkJV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</details>
+
+  </details>
+  <!-- 2XD2 -->
+  <details>
+    <summary>2XD2</summary>
+
+    <!-- Vaihe 1 -->
+    <details>
+      <summary>Vaihe 1: Erottimien asennus / Isolators</summary>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rToGtCoXh-4?si=hQOpgneMIbBCUrOU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </details>
+  
+  </details> <!-- Lopetetaan 2XD2 -->
+
+</div> 
+<div class="section" id="kaapeleidenkengitys">
+  <h2>🔷 Kaapeleiden kengitys</h2>
+  <details>
+    <summary>Vaihe 1: Johdotus / Cable termination</summary>
+  </details>  <!-- <- tässä sulkeva tag -->
+</div>
+</div> 
+<div class="section" id="moottoriohjaus">
+  <h2>🔷 Moottoriohjaus
+        <img src="icon-switch.jpg" alt="moottoriohjaus" class="section-icon">
+  <img src="icon-motor.jpg" alt="Moottoriohjaus" class="section-icon">
+    </h2>
+  <details>
+    <summary>Vaihe 1: Ohjauslaatikko/ Control Box</summary>
+  </details>  <!-- <- tässä sulkeva tag -->
+    <details>
+    <summary>Vaihe 1: Moottoriohjatun erottimen mekanismi / Motor-operated isolator mechanism </summary>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/DVUhEUOnuIA?si=_3H1frq1lIUjicPo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </details>  <!-- <- tässä sulkeva tag -->
+</div>
+</body>
+</html>
